@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styles from './styles.module.css';
 import { AddTaskIcon } from '../Icons/Icons';
 import { DeleteTaskIcon } from "../Icons/Icons";
@@ -39,6 +39,22 @@ const TodoList = () => {
     setDarkMode(!darkMode)
   }
 
+  useEffect(() => {
+    const data = localStorage.getItem("tasks")
+    if (data) {
+      setNewTasks(JSON.parse(data))
+    }
+
+
+  }, [])
+
+  useEffect(() => {
+
+    if (newTasks.length > 0) {
+      localStorage.setItem("tasks", JSON.stringify(newTasks))
+    }
+  }, [newTasks])
+
   return (
     <div className={`${styles.container} ${darkMode ? styles.containerDarkMode : ""}`}>
 
@@ -64,7 +80,7 @@ const TodoList = () => {
             <button
               onClick={handleAddTask}
               className={`${styles.addTaskButton} ${darkMode ? "" : styles.addTaskButtonDarkMode}`}
-              style={currentTask === "" ? {cursor: "not-allowed", opacity: 0.9, } : null}
+              style={currentTask === "" ? { cursor: "not-allowed", opacity: 0.9, } : null}
             >
               <AddTaskIcon />
             </button>
@@ -74,26 +90,31 @@ const TodoList = () => {
         <div className={styles.tasksContainer}>
           <ul>
             {
-              newTasks?.map((task, index) => {
-                return (
-                  <>
-                    <div className={styles.liTaskWrapper}>
-                      <li
-                        key={task}
-                        className={styles.task}
-                      >
-                        {task}
-                      </li>
-                      <button
-                        onClick={() => { handleDeleteTask(index) }}
-                        className={`${styles.deleteTaskButton} ${darkMode ? "" : styles.deleteTaskButtonDarkMode}`}
-                      >
-                        <DeleteTaskIcon/>
-                      </button>
-                    </div>
-                  </>
+              newTasks.length > 0 ?
+                newTasks.map((task, index) => {
+                  return (
+                    <>
+                      <div className={styles.liTaskWrapper}>
+                        <li
+                          key={task}
+                          className={styles.task}
+                        >
+                          {task}
+                        </li>
+                        <button
+                          onClick={() => { handleDeleteTask(index) }}
+                          className={`${styles.deleteTaskButton} ${darkMode ? "" : styles.deleteTaskButtonDarkMode}`}
+                        >
+                          <DeleteTaskIcon />
+                        </button>
+                      </div>
+                    </>
+                  )
+                }) : (
+                  <div>
+                    <span>Nada por aqui, tente adicionar uma nova tarefa :)</span>
+                  </div>
                 )
-              })
             }
           </ul>
         </div>
