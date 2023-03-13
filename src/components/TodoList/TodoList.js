@@ -36,15 +36,18 @@ const TodoList = () => {
   }
 
   const handleToggleMode = () => {
-    setDarkMode(!darkMode)
+    setDarkMode(prevDarkMode => {
+      const newDarkMode = !prevDarkMode;
+      localStorage.setItem("darkMode", JSON.stringify(newDarkMode));
+      return newDarkMode;
+    });
   }
 
   useEffect(() => {
-    const data = localStorage.getItem("tasks")
-    if (data) {
-      setNewTasks(JSON.parse(data))
+    const tasks = localStorage.getItem("tasks")
+    if (tasks) {
+      setNewTasks(JSON.parse(tasks))
     }
-
 
   }, [])
 
@@ -54,6 +57,17 @@ const TodoList = () => {
       localStorage.setItem("tasks", JSON.stringify(newTasks))
     }
   }, [newTasks])
+
+  useEffect(() => {
+    const savedDarkMode = localStorage.getItem("darkMode")
+    if (savedDarkMode) {
+      setDarkMode(JSON.parse(savedDarkMode))
+    }
+
+    console.log(savedDarkMode)
+
+  }, [darkMode])
+
 
   return (
     <div className={`${styles.container} ${darkMode ? styles.containerDarkMode : ""}`}>
