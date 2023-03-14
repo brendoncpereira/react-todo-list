@@ -12,7 +12,7 @@
     flex-direction: column;
     align-items: center;
     min-height: 100vh;
-    transition: all 200ms ease-in-out;
+    transition: all 300ms ease-in-out;
     padding: 0 1.375rem;
     background: #F8F8FF;
 }
@@ -64,6 +64,7 @@
     border: none;
     color: #F8F8FF;
     font-weight: 600;
+    transition: all 300ms ease-in-out;
 }
 
 .inputContainer .taskInput::placeholder {
@@ -119,7 +120,7 @@
 .tasksContainer .task {
     list-style: none;
     color: #F8F8FF;
-    transition: all 300ms;
+    transition: all 300ms ease-in-out;
     background: #1D263B;
     width: 100%;
     padding: 1rem;
@@ -142,24 +143,71 @@
 
 }
 
-.toggleModeButton svg {
-    color: #1D263B;
+.emptyStateContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    margin-top: 2rem;
 }
 
+.emptyStateContainer svg {
+    transition: all 300ms ease-in-out;
+}
+
+.emptyStateText {
+    font-size: 1rem;
+    text-align: center;
+    font-weight: 600;
+    transition: 300ms ease-in-out;
+    color: #18122B;
+}
+
+.emptyStateText span {
+    font-size: 0.875rem;
+    font-weight: 500;
+}
 
 /* dark mode styles */
 
 .containerDarkMode {
-    background-color: #5C6784;
+    background-color: #18122B;
+}
+
+.titleDarkMode {
+    color: #F8F8FF !important;
+}
+
+.labelDarkMode {
+    color: #F8F8FF !important;
+}
+
+.taskInputDarkMode {
+    background: #F8F8FF !important;
+    color: #18122B !important;
+}
+
+.taskInputDarkMode::placeholder {
+    color: #A9A9A9 !important;
+
+}
+
+.addTaskButtonDarkMode,
+.deleteTaskButtonDarkMode {
+    background: #F8F8FF !important;
+}
+
+.taskDarkMode {
+    background: #F8F8FF !important;
+    color: #18122B !important;
 }
 
 .toggleModeButtonDarkMode {
     background: #1D263B;
-
 }
 
-.toggleModeButtonDarkMode svg {
-    color: #F8F8FF;
+.emptyStateTextDarkMode {
+    color: #F8F8FF !important;
 }
 
 /* dark mode styles */
